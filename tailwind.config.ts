@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import defaultTheme from 'tailwindcss/defaultTheme';
 
 export default {
 	darkMode: ["class"],
@@ -52,6 +53,7 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
+        // Sidebar specific colors from PRD mapped to CSS variables
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
 					foreground: 'hsl(var(--sidebar-foreground))',
@@ -61,13 +63,24 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
-				}
+				},
+        // Colors from PRD typography section & specific PRD names
+        primaryText: 'hsl(var(--foreground))', // Mapped to PRD primaryText #1C1E21 (via --foreground)
+        secondaryText: 'hsl(var(--muted-foreground))', // Mapped to PRD secondaryText #606770 (via --muted-foreground)
+        accentBlue: 'hsl(var(--primary))', // PRD accentBlue #1877F2 is mapped to --primary
+        accentGray: 'hsl(var(--accent))', // PRD accentGray #F5F6F7 is mapped to --accent
+        accentRed: 'hsl(var(--destructive))', // PRD accentRed #FA3E3E is mapped to --destructive
 			},
 			borderRadius: {
-				lg: 'var(--radius)',
-				md: 'calc(var(--radius) - 2px)',
-				sm: 'calc(var(--radius) - 4px)'
+        // --radius in CSS is 0.375rem (6px), matching PRD's default "rounded-md"
+				lg: 'var(--radius)', // Tailwind's rounded-lg utility becomes 0.375rem (PRD default for cards/sections)
+        // PRD buttons use "rounded" (Tailwind's default 0.25rem or 4px)
+				md: 'calc(var(--radius) - 2px)', // Tailwind's rounded-md utility becomes 0.25rem (for PRD buttons)
+				sm: 'calc(var(--radius) - 4px)' // Tailwind's rounded-sm utility becomes 0.125rem (2px)
 			},
+      fontFamily: {
+        sans: ['Arial', ...defaultTheme.fontFamily.sans], // PRD: typography.primaryFont
+      },
 			keyframes: {
 				'accordion-down': {
 					from: {
